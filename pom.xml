@@ -185,7 +185,7 @@
 			<artifactId>asm</artifactId>
 			<version>${asm.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
@@ -499,7 +499,7 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
 			<version>${text.version}</version>
-		</dependency>		
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>${project.build.directory}/src</sourceDirectory>
@@ -581,7 +581,7 @@
 				<executions>
 					<execution>
 						<configuration>
-							<module>org.unitime.timetable.gwt.UniTime</module>
+							<module>org.unitime.timetable.gwt.UniTimeDev</module>
 							<extraJvmArgs>-Xmx1g</extraJvmArgs>
 							<localWorkers>8</localWorkers>
 							<webappDirectory>${project.build.directory}/gwt</webappDirectory>
@@ -794,6 +794,7 @@
 		<ant.version>1.10.12</ant.version>
 		<text.version>1.10.0</text.version>
 		<asm.version>9.4</asm.version>
+		<sonar.sources>JavaSource</sonar.sources>
 	</properties>
 
 	<distributionManagement>

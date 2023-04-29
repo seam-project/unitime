@@ -11,4 +11,5 @@
 /gwt-unitCache
 /WebContent/unitime
 /WebContent/WEB-INF/deploy
-build.number
+/build.number
+.vscode

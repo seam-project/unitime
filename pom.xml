@@ -502,9 +502,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<sourceDirectory>JavaSource</sourceDirectory>
-		<!-- Probably copying the resources to src directory is redundant now -->
-		<!-- FIXME: now build.date and build.number won't show correctly in Constants.java -->
+		<sourceDirectory>${project.build.directory}/src</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>JavaSource</directory>
@@ -574,14 +572,6 @@
 					<target>1.8</target>
 					<fork>true</fork>
 					<maxmem>1024m</maxmem>
-					<excludes>
-						<exclude>org/unitime/commons/ant/**/*.*</exclude>
-						<exclude>org/unitime/commons/JDTCompiler15.java</exclude>
-						<exclude>org/unitime/timetable/gwt/command/generator/**/*.*</exclude>
-						<exclude>org/unitime/localization/impl/ImportTranslations.java</exclude>
-						<exclude>org/unitime/localization/impl/ExportTranslations.java</exclude>
-						<exclude>org/unitime/localization/impl/DeepLTranslator.java</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>

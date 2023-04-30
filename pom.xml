@@ -795,6 +795,7 @@
 		<text.version>1.10.0</text.version>
 		<asm.version>9.4</asm.version>
 		<sonar.sources>JavaSource</sonar.sources>
+		<sonar.exclusions>JavaSource/org/unitime/timetable/gwt/client/**</sonar.exclusions>
 	</properties>
 
 	<distributionManagement>

@@ -15,7 +15,7 @@
  *
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
 */
 package org.unitime.timetable.security.rights;
 
@@ -66,53 +66,53 @@ public enum Right {
 	SessionDefaultFirstFuture,
 	/** Session default: first examination session */
 	SessionDefaultFirstExamination,
-	
+
 	/** Session dependency -- if independent the role applies to all academic session */
 	SessionIndependent,
 	SessionIndependentIfNoSessionGiven,
 	/** Session dependency -- test sessions are allowed */
 	AllowTestSessions,
-	
+
 	/** Department dependency -- department must match */
 	DepartmentIndependent,
-	
+
 	/** Status dependency -- session / department status must match */
 	StatusIndependent,
-	
+
 	/** For some old (backward compatible) checks */
 	HasRole,
 	IsAdmin,
-	
+
 	/** Can register UniTime */
     Registration,
 
 	/** Individual page rights: Courses Input Data */
-	
+
 	InstructionalOfferings(Department.class),
 	InstructionalOfferingsExportPDF(Department.class),
 	InstructionalOfferingsWorksheetPDF(Department.class),
 
 	Classes(Department.class),
 	ClassesExportPDF(Department.class),
-	
+
 	ClassAssignments(Session.class),
 	ClassAssignmentsExportPdf(Session.class),
 	ClassAssignmentsExportCsv(Session.class),
 
 	InstructionalOfferingDetail(InstructionalOffering.class),
-	
+
 	AddCourseOffering(SubjectArea.class),
 	EditCourseOffering(CourseOffering.class),
 	EditCourseOfferingNote(CourseOffering.class),
 	EditCourseOfferingCoordinators(CourseOffering.class),
-	
+
 	OfferingCanLock(InstructionalOffering.class),
 	OfferingCanUnlock(InstructionalOffering.class),
 	OfferingMakeNotOffered(InstructionalOffering.class),
 	OfferingMakeNotOfferedNoEnrollmentCheck(InstructionalOffering.class),
 	OfferingMakeOffered(InstructionalOffering.class),
 	OfferingDelete(InstructionalOffering.class),
-	
+
 	InstructionalOfferingCrossLists(InstructionalOffering.class),
 	CourseOfferingDeleteFromCrossList(CourseOffering.class),
 	CourseOfferingDeleteFromCrossListNoEnrollmentCheck(CourseOffering.class),
@@ -127,7 +127,7 @@ public enum Right {
 	MultipleClassSetupDepartment(Department.class),
 	MultipleClassSetupClass(Class_.class),
 	MultipleClassSetupSnapshotLimits,
-	
+
 	AssignInstructors(InstrOfferingConfig.class),
 	AssignInstructorsClass(Class_.class),
 
@@ -142,7 +142,7 @@ public enum Right {
 	ClassDelete(Class_.class),
 	ClassDeleteNoEnrollmentCheck(Class_.class),
 	ClassCancel(Class_.class),
-	
+
     ExtendedDatePatterns,
     ExtendedTimePatterns,
 
@@ -150,7 +150,7 @@ public enum Right {
     CanUseHardRoomPrefs(PreferenceGroup.class),
     CanUseHardDistributionPrefs(PreferenceGroup.class),
     CanUseHardPeriodPrefs(PreferenceGroup.class),
-    
+
 	ClassAssignment(Class_.class),
 
 	CurriculumView(Session.class),
@@ -162,7 +162,7 @@ public enum Right {
     CurriculumAdmin(Session.class),
     CurriculumProjectionRulesDetail(Session.class),
     CurriculumProjectionRulesEdit(Session.class),
-    
+
     Instructors(Department.class),
     InstructorsExportPdf(Department.class),
     ManageInstructors(Department.class),
@@ -174,17 +174,19 @@ public enum Right {
     InstructorPreferences(DepartmentalInstructor.class),
     InstructorAssignmentPreferences(Department.class),
     InstructorClearAssignmentPreferences(Department.class),
-    
+
+    Students,
+
     InstructorAttributes(Department.class),
     InstructorAttributeAdd(Department.class),
     InstructorAttributeEdit(InstructorAttribute.class),
     InstructorAttributeDelete(InstructorAttribute.class),
     InstructorAttributeAssign(InstructorAttribute.class),
     InstructorGlobalAttributeEdit(Session.class),
-    
+
     InstructorSurvey(Department.class),
     InstructorSurveyAdmin(Department.class),
-    
+
 	Rooms(Session.class),
 	RoomsExportPdf(Session.class),
 	RoomsExportCsv(Session.class),
@@ -220,7 +222,7 @@ public enum Right {
 	AddNonUnivLocation(Department.class),
 	NonUniversityLocationEdit(NonUniversityLocation.class),
     NonUniversityLocationDelete(NonUniversityLocation.class),
-	
+
 	RoomFeatures(Session.class),
 	RoomFeaturesExportPdf(Session.class),
 	GlobalRoomFeatureAdd(Session.class),
@@ -229,7 +231,7 @@ public enum Right {
 	GlobalRoomFeatureEdit(GlobalRoomFeature.class),
 	DepartmenalRoomFeatureDelete(DepartmentRoomFeature.class),
 	GlobalRoomFeatureDelete(GlobalRoomFeature.class),
-	
+
 	RoomGroups(Session.class),
 	RoomGroupsExportPdf(Session.class),
 	GlobalRoomGroupAdd(Session.class),
@@ -239,10 +241,10 @@ public enum Right {
 	GlobalRoomGroupEditSetDefault(RoomGroup.class),
 	DepartmenalRoomGroupDelete(RoomGroup.class),
 	GlobalRoomGroupDelete(RoomGroup.class),
-    
+
     TravelTimesLoad(Session.class),
     TravelTimesSave(Session.class),
-	
+
 	DistributionPreferences(Department.class),
 	DistributionPreferenceAdd(Department.class),
 	DistributionPreferenceDetail(DistributionPref.class),
@@ -257,12 +259,12 @@ public enum Right {
 	ReservationAdd(Department.class),
 	ReservationEdit(Reservation.class),
 	ReservationDelete(Reservation.class),
-	
+
 	/** Individual page rights: Course Timetabling */
-	
+
 	CourseTimetabling(SolverGroup.class),
 	CourseTimetablingAudit(SolverGroup.class),
-	
+
 	Timetables(SolverGroup.class),
 	TimetablesSolutionExportCsv(Solution.class),
 	TimetablesSolutionChangeNote(Solution.class),
@@ -284,9 +286,9 @@ public enum Right {
 	ConflictStatistics(SolverGroup.class),
 	SolverLog(SolverGroup.class),
 	SolutionReports(SolverGroup.class),
-	
+
 	/** Individual page rights: Examinations */
-	
+
 	Examinations(Session.class),
 
 	ExaminationView(Exam.class),
@@ -297,13 +299,13 @@ public enum Right {
     ExaminationClone(Exam.class),
     ExaminationAdd(Session.class),
     ExaminationAssignment(Exam.class),
-    
+
     ExaminationDistributionPreferences(Session.class),
     ExaminationDistributionPreferenceAdd(Session.class),
     ExaminationDistributionPreferenceDetail(DistributionPref.class),
     ExaminationDistributionPreferenceEdit(DistributionPref.class),
     ExaminationDistributionPreferenceDelete(DistributionPref.class),
-    
+
 	ExaminationSchedule(Session.class),
 
 	/** Individual page rights: Examination Timetabling */
@@ -319,7 +321,7 @@ public enum Right {
 	ExaminationReports(Session.class),
 	ExaminationPdfReports(Session.class),
 	ExaminationSolutionExportXml(Session.class),
-	
+
     /** Individual page rights: Instructor Scheduling */
 	InstructorScheduling(SolverGroup.class),
     InstructorSchedulingSolver(SolverGroup.class),
@@ -327,7 +329,7 @@ public enum Right {
     InstructorSchedulingSolutionExportXml(SolverGroup.class),
 
 	/** Individual page rights: Students Scheduling */
-	
+
     StudentScheduling(Session.class),
     EnrollmentAuditPDFReports(Session.class),
     StudentSectioningSolver(Session.class),
@@ -337,7 +339,7 @@ public enum Right {
     StudentSectioningSolverReports(Session.class),
     StudentSectioningSolutionExportXml(Session.class),
     StudentSectioningSolverPublish(Session.class),
-    
+
     /** Individual page rights: Online Students Scheduling */
 
     CourseRequests(Session.class),
@@ -365,13 +367,13 @@ public enum Right {
     StudentSchedulingCanRequirePreferences(Student.class),
     StudentSchedulingChangeCriticalOverride(Student.class),
     StudentSchedulingCanLookupAllCourses(Session.class),
-    
+
     OfferingEnrollments(InstructionalOffering.class),
     StudentEnrollments(Student.class),
     EnrollmentsShowExternalId,
-    
+
     /** Individual page rights: Events */
-    
+
     Events(Session.class),
     EventAddSpecial(Session.class),
     EventAddCourseRelated(Session.class),
@@ -407,14 +409,14 @@ public enum Right {
     EventCanViewMeetingContacts,
     EventCanEditMeetingContacts,
     EventCanSeeUnpublishedEvents(Session.class),
-    
+
     /** Administration: Academic Sessions */
-    
+
     AcademicSessions,
     AcademicSessionAdd,
     AcademicSessionEdit(Session.class),
     AcademicSessionDelete(Session.class),
-    
+
     TimetableManagers,
     TimetableManagerAdd,
     TimetableManagerEdit(TimetableManager.class),
@@ -428,7 +430,7 @@ public enum Right {
     DepartmentDelete(Department.class),
 
     SolverGroups(Session.class),
-    
+
     SubjectAreas(Session.class),
     SubjectAreaAdd(Session.class),
     SubjectAreaEdit(SubjectArea.class),
@@ -450,37 +452,37 @@ public enum Right {
 
     AcademicAreas(Session.class),
     AcademicAreaEdit(Session.class),
-    
+
     AcademicClassifications(Session.class),
     AcademicClassificationEdit(Session.class),
 
     Majors(Session.class),
     MajorEdit(Session.class),
-    
+
     Concentrations(Session.class),
     ConcentrationEdit(Session.class),
-    
+
     Degrees(Session.class),
     DegreeEdit(Session.class),
-    
+
     Programs(Session.class),
     ProgramEdit(Session.class),
-    
+
     Campuses(Session.class),
     CampusEdit(Session.class),
 
     Minors(Session.class),
     MinorEdit(Session.class),
-    
+
     StudentGroups(Session.class),
     StudentGroupEdit(Session.class),
-    
+
     StudentAccommodations(Session.class),
     StudentAccommodationEdit(Session.class),
-    
+
     StudentAdvisors(Session.class),
     StudentAdvisorEdit(Session.class),
-    
+
     ExaminationPeriods(Session.class),
 
     DataExchange(Session.class),
@@ -488,9 +490,9 @@ public enum Right {
     SessionRollForward,
 
     LastChanges(Session.class),
-    
+
     /** Administration: Solver */
-    
+
 	ManageSolvers(Session.class),
 
 	SolverParameterGroups,
@@ -500,7 +502,7 @@ public enum Right {
     DistributionTypeEdit(Session.class),
 
     /** Administration: Other */
-    
+
     InstructionalTypes,
     InstructionalTypeAdd,
     InstructionalTypeEdit(ItypeDesc.class),
@@ -522,7 +524,7 @@ public enum Right {
 
     Users,
     ChangePassword(Session.class),
-    
+
     OfferingConsentTypes,
     OfferingConsentTypeEdit,
 
@@ -540,67 +542,67 @@ public enum Right {
 
 	StudentSchedulingStatusTypes,
 	StudentSchedulingStatusTypeEdit,
-    
+
 	Roles,
 	RoleEdit,
 
 	Permissions,
 	PermissionEdit,
-	
+
 	ExamTypes,
 	ExamTypeEdit,
-	
+
 	EventStatuses(Department.class),
 	EventStatusEdit(Department.class),
-	
+
 	RoomFeatureTypes,
 	RoomFeatureTypeEdit,
-	
+
 	InstructorRoles(Department.class),
 	InstructorRoleEdit(Department.class),
-	
+
 	EventDateMappings(Session.class),
 	EventDateMappingEdit(Session.class),
-	
+
 	CourseTypes,
 	CourseTypeEdit,
-	
+
 	EventDefaults,
 	EventDefaultsEditOther,
-	
+
 	DurationTypes,
 	DurationTypeEdit,
-	
+
 	ExaminationStatuses,
 	ExaminationStatusEdit,
-	
+
 	AttachmentTypes,
 	AttachmentTypeEdit,
-	
+
 	InstructionalMethods,
 	InstructionalMethodEdit,
-	
+
 	PreferenceLevels,
 	PreferenceLevelEdit,
-	
+
 	InstructorAttributeTypes,
 	InstructorAttributeTypeEdit,
-	
+
 	TeachingResponsibilities,
 	TeachingResponsibilityEdit,
 
 	StudentGroupTypes,
 	StudentGroupTypeEdit,
-	
+
 	OverrideTypes,
 	OverrideTypeEdit,
-	
+
 	ContactCategories,
 	ContactCategoryEdit,
 
 	LearningManagementSystemInfos,
 	LearningManagementSystemInfoEdit,
-	
+
 	InstructorSurveyNoteTypes,
 	InstructorSurveyNoteTypeEdit,
 
@@ -610,47 +612,47 @@ public enum Right {
 	EventServiceProviderEditDepartment(Department.class),
 
 	/** Point In Time Data */
-	
+
 	PointInTimeData,
 	PointInTimeDataEdit,
     PointInTimeDataReports(Session.class),
-    
+
     /** Limit and Projection Snapshot Data*/
     LimitAndProjectionSnapshot,
     LimitAndProjectionSnapshotSave,
 
 	/** Administration: Defaults */
-	
+
 	ApplicationConfig,
 	ApplicationConfigEdit,
-	
+
     SettingsAdmin,
 
     /** Administration: Utilities */
-    
+
     PageStatistics,
 
     HibernateStatistics,
-    
+
     TestHQL,
     ClearHibernateCache,
-    
+
     /** Preferences */
 
 	Chameleon(Session.class),
     SettingsUser,
-    
+
     /** Help */
-    
+
     Inquiry,
 
     /** Other */
-	
+
 	PersonalSchedule(Session.class),
 	PersonalScheduleLookup(Session.class),
-	
+
 	/** Reports */
-	
+
     HQLReports(Session.class),
     HQLReportAdd(Session.class),
     HQLReportEdit(SavedHQL.class),
@@ -661,15 +663,15 @@ public enum Right {
     HQLReportsEvents(Session.class),
     HQLReportsAdministration(Session.class),
     HQLReportsAdminOnly(Session.class),
-    
+
     /** Scripting */
-    
+
     Scripts,
     ScriptEdit,
     Tasks(Session.class),
     TaskDetail(Session.class),
     TaskEdit(Session.class),
-    
+
     /** API */
     ApiRetrieveEvents(Session.class),
     ApiRetrieveRooms(Session.class),
@@ -687,7 +689,7 @@ public enum Right {
     ApiRetrieveStudentGroups(Session.class),
     ApiVariableTitleSectionLookup(Session.class),
     ApiVariableTitleSectionCreate(Session.class),
-    
+
     /** People Lookup limitations */
     CanLookupStudents,
     CanLookupInstructors,
@@ -698,15 +700,15 @@ public enum Right {
     CanLookupAdvisors,
 
 	/** Obsolete */
-    
+
 	SolutionInformationDefinitions,
 
 	;
-	
+
 	private Class<?> iType;
 	Right(Class<?> type) { iType = type; }
 	Right() { this(null); }
-	
+
 	public Class<?> type() { return iType; }
 	public boolean hasType() { return iType != null; }
 	@Override

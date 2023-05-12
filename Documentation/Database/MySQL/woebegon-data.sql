@@ -15,7 +15,7 @@
  *
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
 */
 
 use timetable;
@@ -10880,6 +10880,7 @@ insert into `rights` values
 	(1,'InstructorRoleEdit'),
 	(1,'InstructorRoles'),
 	(1,'Instructors'),
+	(1,'Students'),
 	(1,'InstructorsExportPdf'),
 	(1,'IsAdmin'),
 	(1,'LastChanges'),

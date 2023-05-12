@@ -15,7 +15,7 @@
  *
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
 */
 package org.unitime.timetable.action;
 
@@ -45,7 +45,7 @@ import org.unitime.timetable.webutil.InstructorListBuilder;
 import org.unitime.timetable.webutil.PdfWebTable;
 
 
-/** 
+/**
  * @author Tomas Muller, Zuzana Mullerova
  */
 @Action(value="instructorSearch", results = {
@@ -65,13 +65,13 @@ public class InstructorSearchAction extends UniTimeAction<BlankForm> {
 	protected final static CourseMessages MSG = Localization.create(CourseMessages.class);
 	private String iDeptId;
 	private boolean iHasSurveys = false;
-	
+
 	public String getDeptId() { return iDeptId; }
 	public void setDeptId(String deptId) { iDeptId = deptId; }
-	
+
 	public boolean getHasSurveys() { return iHasSurveys; }
 	public void setHasSurveys(boolean hasSurveys) { iHasSurveys = hasSurveys; }
-	
+
 	public String execute() throws IOException {
 		if (MSG.actionManageInstructorList().equals(getOp())) {
 			return "manageInstructorList";
@@ -79,24 +79,24 @@ public class InstructorSearchAction extends UniTimeAction<BlankForm> {
 		if (MSG.actionAddNewInstructor().equals(getOp())) {
 			return "addNewInstructor";
 		}
-		
+
 		sessionContext.checkPermission(Right.Instructors);
 
 		setupManagerDepartments();
-		
+
 		if (getDeptId() == null || getDeptId().isEmpty())
 			setDeptId((String)sessionContext.getAttribute(SessionAttribute.DepartmentId));
 
 		if (MSG.actionSearchInstructors().equals(getOp()) && (getDeptId() == null || getDeptId().isEmpty())) {
 			addActionError(MSG.errorRequiredDepartment());
 		}
-		
+
 		if (getDeptId() == null || getDeptId().isEmpty() || !sessionContext.hasPermission(getDeptId(), "Department", Right.Instructors)) {
 			return "showSearch";
 		}
-		
+
 		sessionContext.setAttribute(SessionAttribute.DepartmentId, getDeptId());
-		
+
 		WebTable.setOrder(sessionContext,"instructorList.ord",request.getParameter("order"),2);
 		InstructorListBuilder ilb = new InstructorListBuilder();
 		String backId = ("PreferenceGroup".equals(request.getParameter("backType"))?request.getParameter("backId"):null);
@@ -131,13 +131,13 @@ public class InstructorSearchAction extends UniTimeAction<BlankForm> {
 				return null;
 			}
 		}
-		
+
 		if (getDeptId() != null && !getDeptId().isEmpty()) {
 			setHasSurveys(InstructorSurvey.hasInstructorSurveys(Long.valueOf(getDeptId())));
 		} else {
-			setHasSurveys(false);	
+			setHasSurveys(false);
 		}
-		
+
 		if (getDeptId() != null && !getDeptId().isEmpty()) {
 			Department d = DepartmentDAO.getInstance().get(Long.valueOf(getDeptId()));
 			if (d!=null) {
@@ -165,24 +165,24 @@ public class InstructorSearchAction extends UniTimeAction<BlankForm> {
 					MSG.backInstructors2(),
 					true, true
 					);
-		}		
+		}
 		return "showList";
 	}
 
-	
+
     private Set<Department> setupManagerDepartments() {
     	Set<Department> departments = Department.getUserDepartments(sessionContext.getUser());
 
 		if (departments.isEmpty())
 			addActionError(MSG.exceptionNoDepartmentToManage());
-		
+
 		List<IdValue> labelValueDepts = new ArrayList<IdValue>();
 		for (Department d: departments)
 			labelValueDepts.add(new IdValue(d.getUniqueId(), d.getDeptCode() + " - " + d.getName()));
-		
+
 		if (labelValueDepts.size() == 1)
 			setDeptId(labelValueDepts.get(0).getId().toString());
-		
+
 		request.setAttribute(Department.DEPT_ATTR_NAME,labelValueDepts);
 		return departments;
     }

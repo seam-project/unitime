@@ -30,6 +30,7 @@ import org.unitime.localization.impl.Localization;
 import org.unitime.localization.messages.CourseMessages;
 import org.unitime.timetable.form.BlankForm;
 import org.unitime.timetable.security.rights.Right;
+import org.unitime.timetable.webutil.StudentListBuilder;
 
 /**
  * @author seam-project
@@ -56,7 +57,8 @@ public class StudentSearchAction extends UniTimeAction<BlankForm> {
             return "showSearch";
         }
 
-        String tblData = "test";
+        StudentListBuilder slb = new StudentListBuilder();
+        String tblData = slb.htmlTableForStudent(sessionContext);
         if (tblData == null || tblData.trim().isEmpty()) {
             addActionError(MSG.errorNoStudentsFoundInSearch());
             return "showSearch";

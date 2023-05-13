@@ -32,7 +32,7 @@ import org.unitime.timetable.form.BlankForm;
 import org.unitime.timetable.security.rights.Right;
 
 /**
- * @author Tomas Muller, Zuzana Mullerova
+ * @author seam-project
  */
 @Action(value = "studentSearch", results = {
         @Result(name = "showSearch", type = "tiles", location = "studentSearch.tiles"),

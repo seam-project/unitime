@@ -22,28 +22,22 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="loc" uri="http://www.unitime.org/tags-localization" %>
 
-<loc:bundle name="CourseMessages"><s:set var="msg" value="#attr.MSG"/>
-<loc:bundle name="ConstantsMessages" id="CONST"><s:set var="const" value="#attr.CONST"/>
-<s:form action="studentSearch">
+<s:form action="studentDetail">
 <table class="unitime-MainTable">
 	<tr><td>
 		<tt:section-header>
 			<tt:section-title>
 				<div style="padding-right: 3px; display: block; margin-bottom: 3px; line-height: 25px;">
-				<s:submit name='op' value="%{#msg.actionSearchStudents()}"
-					title="%{#msg.titleSearchStudents(#msg.accessSearchStudents())}"
-					accesskey="%{#msg.accessSearchStudents()}"/>
+                    Student Details - <s:property value="#request.studentId"/>
 				</div>
 			</tt:section-title>
 		</tt:section-header>
 		</td></tr>
 		<tr><td colspan="2" align="center"><s:actionerror/></td></tr>
 	</table>
-	<s:if test="#request.studentList != null">
+	<s:if test="#request.studentDetails != null">
 		<table class="unitime-MainTable" style="padding-top: 20px;">
-			<s:property value="%{#request.studentList}" escapeHtml="false"/>
+			<s:property value="%{#request.studentDetails}" escapeHtml="false"/>
 		</table>
 	</s:if>
 </s:form>
-</loc:bundle>
-</loc:bundle>

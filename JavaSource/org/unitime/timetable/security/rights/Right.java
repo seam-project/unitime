@@ -701,7 +701,7 @@ public enum Right {
 
 	/** Obsolete */
 
-	SolutionInformationDefinitions,
+	SolutionInformationDefinitions, StudentDetail,
 
 	;
 

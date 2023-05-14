@@ -39,9 +39,11 @@ public class StudentListBuilder {
             return null;
         String table = "";
         for (Student student : students) {
-            table += student.getUniqueId() + ". " + nullableToString(student.getFirstName()) + ' '
+            String id = student.getExternalUniqueId();
+            table += "<a href='studentDetail.action?studentId=" + id + "'>"
+                    + id + ". " + nullableToString(student.getFirstName()) + ' '
                     + nullableToString(student.getMiddleName()) + ' '
-                    + nullableToString(student.getLastName()) + "<br />";
+                    + nullableToString(student.getLastName()) + "</a><br />";
         }
         return table;
     }

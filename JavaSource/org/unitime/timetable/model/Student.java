@@ -15,7 +15,7 @@
  *
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
 */
 package org.unitime.timetable.model;
 
@@ -79,7 +79,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
             setLong("sessionId", sessionId.longValue()).
             list();
     }
-    
+
     public static Student findByExternalId(Long sessionId, String externalId) {
         return (Student)new StudentDAO().
             getSession().
@@ -91,7 +91,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
             setCacheable(true).
             uniqueResult();
     }
-    
+
     public static Student findByExternalIdBringBackEnrollments(org.hibernate.Session hibSession, Long sessionId, String externalId) {
         return (Student)hibSession.
             createQuery("select s from Student s " +
@@ -108,7 +108,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
             setCacheable(true).
             uniqueResult();
     }
-    
+
     public void removeAllEnrollments(org.hibernate.Session hibSession){
 		HashSet<StudentClassEnrollment> enrollments = new HashSet<StudentClassEnrollment>();
     	if (getClassEnrollments() != null){
@@ -160,7 +160,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
                 .list());
         return exams;
     }
-    
+
     public Set<Exam> getExams(ExamType examType) {
         HashSet exams = new HashSet();
         exams.addAll(new StudentDAO().getSession().createQuery(
@@ -197,17 +197,17 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
                 .list());
         return exams;
     }
-    
+
     public String getName(String instructorNameFormat) {
     	return NameFormat.fromReference(instructorNameFormat).format(this);
     }
-    
+
     public int compareTo(Student student) {
         int cmp = NameFormat.LAST_FIRST.format(this).compareTo(NameFormat.LAST_FIRST.format(student));
         if (cmp!=0) return cmp;
         return (getUniqueId() == null ? Long.valueOf(-1) : getUniqueId()).compareTo(student.getUniqueId() == null ? -1 : student.getUniqueId());
     }
-    
+
     public static Hashtable<Long,Set<Long>> findConflictingStudents(Long classId, int startSlot, int length, List<Date> dates) {
     	Hashtable<Long,Set<Long>> table = new Hashtable();
     	if (dates.isEmpty()) return table;
@@ -219,7 +219,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	Query q = LocationDAO.getInstance().getSession()
     	    .createQuery("select distinct e.clazz.uniqueId, e.student.uniqueId "+
     	        	"from StudentClassEnrollment e, ClassEvent c inner join c.meetings m, StudentClassEnrollment x "+
-    	        	"where x.clazz.uniqueId=:classId and x.student=e.student and " + // only look among students of the given class 
+    	        	"where x.clazz.uniqueId=:classId and x.student=e.student and " + // only look among students of the given class
     	        	"e.clazz=c.clazz and " + // link ClassEvent c with StudentClassEnrollment e
             		"m.stopPeriod>:startSlot and :endSlot>m.startPeriod and " + // meeting time within given time period
             		"m.meetingDate in ("+datesStr+") and m.approvalStatus = 1")
@@ -240,7 +240,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
         }
         return table;
     }
-    
+
     public boolean hasSectioningStatusOption(StudentSectioningStatus.Option option) {
     	StudentSectioningStatus status = getEffectiveStatus();
     	return status != null && status.hasOption(option);
@@ -248,7 +248,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
 
 	@Override
 	public String getAcademicTitle() { return null; }
-	
+
 	@Override
 	public Serializable getQualifierId() {
 		return getUniqueId();
@@ -268,32 +268,32 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
 	public String getQualifierLabel() {
 		return NameFormat.LAST_FIRST_MIDDLE.format(this);
 	}
-	
+
 	public CourseRequestOverrideStatus getMaxCreditOverrideStatus() {
     	if (getOverrideStatus() == null) return CourseRequestOverrideStatus.APPROVED;
     	return CourseRequestOverrideStatus.values()[getOverrideStatus()];
     }
-    
+
     public void setMaxCreditOverrideStatus(CourseRequestOverrideStatus status) {
     	setOverrideStatus(status == null ? null : Integer.valueOf(status.ordinal()));
     }
-    
+
     public boolean isRequestApproved() {
     	return getOverrideStatus() == null || getOverrideStatus().intValue() == CourseRequestOverrideStatus.APPROVED.ordinal();
     }
-    
+
     public boolean isRequestPending() {
     	return getOverrideStatus() != null && getOverrideStatus().intValue() == CourseRequestOverrideStatus.PENDING.ordinal();
     }
-    
+
     public boolean isRequestCancelled() {
     	return getOverrideStatus() != null && getOverrideStatus().intValue() == CourseRequestOverrideStatus.CANCELLED.ordinal();
     }
-    
+
     public boolean isRequestRejected() {
     	return getOverrideStatus() != null && getOverrideStatus().intValue() == CourseRequestOverrideStatus.REJECTED.ordinal();
     }
-    
+
     public StudentSectioningStatus getEffectiveStatus() {
     	if (getSectioningStatus() != null) {
 			if (getSectioningStatus().isEffectiveNow())
@@ -321,7 +321,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	}
     	return null;
     }
-    
+
     public WaitListMode getWaitListMode() {
     	StudentSectioningStatus status = getEffectiveStatus();
 		if (CustomStudentEnrollmentHolder.isAllowWaitListing() && (status == null || status.hasOption(Option.waitlist))) {
@@ -331,7 +331,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
 		}
 		return WaitListMode.None;
     }
-    
+
     public Date getLastChangedByStudent() {
     	Date ret = null;
     	if (getCourseDemands() != null) {
@@ -351,10 +351,10 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	}
     	return ret;
     }
-    
+
     public boolean hasReleasedPin() { return getPin() != null && !getPin().isEmpty() && isPinReleased() != null && isPinReleased().booleanValue(); }
     public String getReleasedPin() { return (hasReleasedPin() ? getPin() : null); }
-    
+
     public Set<Long> getAdvisorWaitListedCourseIds(boolean useWaitLists, boolean useNoSubs) {
     	if (!useWaitLists && !useNoSubs) return null;
     	if (getAdvisorCourseRequests() == null || getAdvisorCourseRequests().isEmpty()) return null;
@@ -369,7 +369,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	}
     	return courseIds;
     }
-    
+
     public Set<Long> getAdvisorWaitListedCourseIds(OnlineSectioningServer server) {
     	if (server == null) {
     		return getAdvisorWaitListedCourseIds(
@@ -383,18 +383,18 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     				);
     	}
     }
-    
+
     public void setMaxCreditOverrideIntent(CourseRequestOverrideIntent intent) {
     	if (intent == null)
     		setOverrideIntent(null);
     	else
     		setOverrideIntent(intent.ordinal());
     }
-    
+
     public CourseRequestOverrideIntent getMaxCreditOverrideIntent() {
-    	return (getOverrideIntent() == null ? null : CourseRequestOverrideIntent.values()[getOverrideIntent()]); 
+    	return (getOverrideIntent() == null ? null : CourseRequestOverrideIntent.values()[getOverrideIntent()]);
     }
-    
+
     public StudentAreaClassificationMajor getPrimaryAreaClasfMajor() {
     	if (getAreaClasfMajors() == null) return null;
     	StudentAreaClassificationMajor major = null;
@@ -404,21 +404,21 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	}
     	return major;
     }
-    
+
     public CourseRequest getCourseRequest(CourseOffering co) {
     	for (CourseDemand cd: getCourseDemands())
     		for (CourseRequest cr: cd.getCourseRequests())
     			if (cr.getCourseOffering().equals(co)) return cr;
     	return null;
     }
-    
+
     public boolean isEnrolled(CourseOffering co) {
     	if (co == null) return false;
     	for (StudentClassEnrollment e: getClassEnrollments())
     		if (e.getCourseOffering().equals(co)) return true;
     	return false;
     }
-    
+
     public WaitList addWaitList(CourseOffering co, WaitList.WaitListType type, boolean waitListed, String changedBy, Date timeStamp, org.hibernate.Session hibSession) {
     	if (ApplicationProperty.WaitListLogging.isFalse()) return null;
     	if (co == null) return null;
@@ -433,7 +433,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	boolean lastWaitListed = (last == null ? false : last.isWaitListed());
     	CourseOffering lastEnrolled = (last == null ? null : last.getEnrolledCourse());
     	CourseOffering enrolled = (cr == null ? null : cr.getCourseDemand().getEnrolledCourse());
-    	if (enrolled != null && cr != null && enrolled.equals(cr.getCourseDemand().getWaitListSwapWithCourseOffering()) && !cr.isRequired()) 
+    	if (enrolled != null && cr != null && enrolled.equals(cr.getCourseDemand().getWaitListSwapWithCourseOffering()) && !cr.isRequired())
     		enrolled = null; // if section swap and the enrollment does not meet requirements -> not enrolled
     	CourseOffering lastSwap = (last == null ? null : last.getSwapCourseOffering());
     	CourseOffering swap = (cr == null ? null : cr.getCourseDemand().getWaitListSwapWithCourseOffering());
@@ -458,7 +458,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     		return null;
     	}
     }
-    
+
     public void resetWaitLists(WaitList.WaitListType type, String changedBy, Date timeStamp, org.hibernate.Session hibSession) {
     	if (ApplicationProperty.WaitListLogging.isFalse()) return;
     	if (timeStamp == null) timeStamp = new Date();
@@ -503,7 +503,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
 				CourseOffering co = cd.getFirstChoiceCourseOffering();
 				if (co != null) {
 					WaitList old = waitlists.remove(co);
-					if (old == null || !old.isWaitListed() || !WaitList.computeRequest(cd).equals(old.getRequest()) || 
+					if (old == null || !old.isWaitListed() || !WaitList.computeRequest(cd).equals(old.getRequest()) ||
 							!(old.getSwapCourseOffering() == null ? cd.getWaitListSwapWithCourseOffering() == null : old.getSwapCourseOffering().equals(cd.getWaitListSwapWithCourseOffering()))) {
 						// new wait-lists
 						WaitList wl = new WaitList();
@@ -545,7 +545,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
 			}
 		}
     }
-    
+
     public ClassModality getPreferredClassModality() {
     	if (getSchedulePreference() == null) return ClassModality.NoPreference;
     	return ClassModality.values()[getSchedulePreference()];
@@ -564,7 +564,7 @@ public class Student extends BaseStudent implements Comparable<Student>, NameInt
     	default: return ModalityPreference.NO_PREFERENCE;
     	}
     }
-    
+
     public ScheduleGaps getPreferredScheduleGaps() {
     	if (getFreeTimeCategory() == null) return ScheduleGaps.NoPreference;
     	return ScheduleGaps.values()[getFreeTimeCategory()];

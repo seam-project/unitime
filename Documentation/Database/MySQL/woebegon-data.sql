@@ -10881,6 +10881,7 @@ insert into `rights` values
 	(1,'InstructorRoles'),
 	(1,'Instructors'),
 	(1,'Students'),
+	(1,'StudentDetail'),
 	(1,'InstructorsExportPdf'),
 	(1,'IsAdmin'),
 	(1,'LastChanges'),

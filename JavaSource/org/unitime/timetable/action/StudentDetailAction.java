@@ -25,41 +25,34 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.tiles.annotation.TilesDefinition;
 import org.apache.struts2.tiles.annotation.TilesPutAttribute;
-import org.unitime.localization.impl.Localization;
-import org.unitime.localization.messages.CourseMessages;
 import org.unitime.timetable.form.BlankForm;
 import org.unitime.timetable.security.rights.Right;
-import org.unitime.timetable.webutil.StudentListBuilder;
+import org.unitime.timetable.webutil.SimpleStudentClassListBuilder;
 
 /**
  * @author seam-project
  */
-@Action(value = "studentSearch", results = {
-        @Result(name = "showList", type = "tiles", location = "studentSearch.tiles")
+@Action(value = "studentDetail", results = {
+        @Result(name = "showStudentDetail", type = "tiles", location = "studentDetail.tiles")
 })
-@TilesDefinition(name = "studentSearch.tiles", extend = "baseLayout", putAttributes = {
-        @TilesPutAttribute(name = "title", value = "Students"),
-        @TilesPutAttribute(name = "body", value = "/user/studentSearch.jsp")
+@TilesDefinition(name = "studentDetail.tiles", extend = "baseLayout", putAttributes = {
+        @TilesPutAttribute(name = "title", value = "Student Detail"),
+        @TilesPutAttribute(name = "body", value = "/user/studentDetail.jsp")
 })
-public class StudentSearchAction extends UniTimeAction<BlankForm> {
-    private static final long serialVersionUID = 5199990990419667211L;
+public class StudentDetailAction extends UniTimeAction<BlankForm> {
 
-    protected final static CourseMessages MSG = Localization.create(CourseMessages.class);
+    private static final long serialVersionUID = 7592940798685460713L;
 
     public String execute() throws IOException {
-        sessionContext.checkPermission(Right.Students);
+        sessionContext.checkPermission(Right.StudentDetail);
 
-        if (!MSG.actionSearchStudents().equals(getOp())) {
-            return "showList";
-        }
+        String studentId = request.getParameter("studentId");
+        request.setAttribute("studentId", studentId);
+        SimpleStudentClassListBuilder clb = new SimpleStudentClassListBuilder();
+        String tblData = clb.getList(sessionContext, studentId);
+        if (tblData != null && !tblData.trim().isEmpty())
+            request.setAttribute("studentDetails", tblData);
+        return "showStudentDetail";
 
-        StudentListBuilder slb = new StudentListBuilder();
-        String tblData = slb.htmlTableForStudent(sessionContext);
-        if (tblData == null || tblData.trim().isEmpty())
-            addActionError(MSG.errorNoStudentsFoundInSearch());
-        else
-            request.setAttribute("studentList", tblData);
-
-        return "showList";
     }
 }

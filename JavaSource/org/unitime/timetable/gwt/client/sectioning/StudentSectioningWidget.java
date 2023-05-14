@@ -15,7 +15,7 @@
  *
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
 */
 package org.unitime.timetable.gwt.client.sectioning;
 
@@ -158,19 +158,19 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 	private static DateTimeFormat sDF = DateTimeFormat.getFormat(CONSTANTS.requestWaitListedDateFormat());
 
 	private final SectioningServiceAsync iSectioningService = GWT.create(SectioningService.class);
-	
+
 	private AcademicSessionProvider iSessionSelector;
 	private UserAuthenticationProvider iUserAuthentication;
-	
+
 	private VerticalPanel iPanel;
 	private P iFooter, iHeader;
 	private AriaMultiButton iRequests, iReset, iSchedule, iEnroll, iPrint, iExport = null, iSave, iStartOver, iDegreePlan, iChangeGradeModes, iAdvisorReqs, iPreferences;
-	
+
 	private AriaTabBar iAssignmentTab;
 	private DockPanel iAssignmentDock;
 	private FocusPanel iAssignmentPanel;
 	private ImageLink iCalendar = null;
-	
+
 	private CourseRequestsTable iCourseRequests;
 	private WebTable iAssignments;
 	private TimeGrid iAssignmentGrid;
@@ -182,7 +182,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 	private P iTotalCreditRequests;
 	private SpecialRegistrationsPanel iSpecialRegistrationsPanel;
 	private WaitListsPanel iWaitListsPanel;
-	
+
 	private ArrayList<ClassAssignmentInterface.ClassAssignment> iLastResult, iLastEnrollment;
 	private ClassAssignmentInterface iLastAssignment, iSavedAssignment = null, iSpecialRegAssignment = null;
 	private CourseRequestInterface iSavedRequest = null;
@@ -199,16 +199,16 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 	private AriaButton iQuickAdd, iRequestVarTitleCourse;
 	private CourseFinder iQuickAddFinder = null;
 	private SuggestionsBox iQuickAddSuggestions = null;
-	
+
 	private CheckBox iCustomCheckbox = null;
 	private DegreePlansSelectionDialog iDegreePlansSelectionDialog = null;
 	private DegreePlanDialog iDegreePlanDialog = null;
 	private StudentSchedulingPreferencesDialog iSchedulingPreferencesDialog = null;
-	
+
 	private ChangeGradeModesDialog iChangeGradeModesDialog = null;
 	private RequestVariableTitleCourseDialog iRequestVariableTitleCourseDialog = null;
 	private Float iCurrentCredit = null;
-	
+
 	private WaitListedRequestPreferences iWaitListedRequestPreferences = null;
 
 	public StudentSectioningWidget(boolean online, AcademicSessionProvider sessionSelector, UserAuthenticationProvider userAuthentication, StudentSectioningPage.Mode mode, boolean history) {
@@ -220,10 +220,10 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iSessionSelector = sessionSelector;
 		iUserAuthentication = userAuthentication;
 		iTrackHistory = history;
-		
+
 		iPanel = new VerticalPanel();
 		iPanel.addStyleName("unitime-SchedulingAssistant");
-		
+
 		iCourseRequests = new CourseRequestsTable(iContext, iSpecRegCx);
 		iCourseRequests.addValueChangeHandler(new ValueChangeHandler<CourseRequestInterface>() {
 			@Override
@@ -236,8 +236,8 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 						if (iSavedRequest.hasRequestorNote())
 							note += "\n" + MESSAGES.requestNote(iSavedRequest.getRequestorNote());
 						if (iSavedRequest.hasCreditNote())
-							note += "\n" + MESSAGES.overrideNote(iSavedRequest.getCreditNote()); 
-						
+							note += "\n" + MESSAGES.overrideNote(iSavedRequest.getCreditNote());
+
 						switch (iSavedRequest.getMaxCreditOverrideStatus()) {
 						case CREDIT_HIGH:
 							iTotalCreditRequestsStatus.setResource(RESOURCES.requestNeeded());
@@ -327,14 +327,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				}
 			}
 		});
-		
+
 		iHeader = new P("unitime-SchedulingAssistantButtons", "unitime-SchedulingAssistantButtonsHeader");
 		iPanel.add(iHeader);
-		
+
 		iPanel.add(iCourseRequests);
-		
+
 		iFooter = new P("unitime-SchedulingAssistantButtons", "unitime-SchedulingAssistantButtonsFooter");
-		
+
 		P leftFooterPanel = new P("left-panel");
 		P leftHeaderPanel = new P("left-panel");
 		iPreferences = new AriaMultiButton(RESOURCES.preferences(), MESSAGES.buttonStudentSchedulingPreferences());
@@ -342,22 +342,22 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iPreferences.setVisible(false);
 		iPreferences.setEnabled(false);
 		leftFooterPanel.add(iPreferences);
-		leftHeaderPanel.add(iPreferences.createClone()); 
-		
+		leftHeaderPanel.add(iPreferences.createClone());
+
 		iDegreePlan = new AriaMultiButton(MESSAGES.buttonDegreePlan());
 		iDegreePlan.setTitle(MESSAGES.hintDegreePlan());
 		iDegreePlan.setVisible(false);
 		iDegreePlan.setEnabled(false);
 		leftFooterPanel.add(iDegreePlan);
 		leftHeaderPanel.add(iDegreePlan.createClone());
-		
+
 		iAdvisorReqs = new AriaMultiButton(MESSAGES.buttonAdvisorRequests());
 		iAdvisorReqs.setTitle(MESSAGES.hintAdvisorRequests());
 		iAdvisorReqs.setVisible(false);
 		iAdvisorReqs.setEnabled(false);
 		leftFooterPanel.add(iAdvisorReqs);
 		leftHeaderPanel.add(iAdvisorReqs.createClone());
-		
+
 		iRequests = (LocaleInfo.getCurrentLocale().isRTL() ? new AriaMultiButton(MESSAGES.buttonRequests(), RESOURCES.arrowForward()) : new AriaMultiButton(RESOURCES.arrowBack(), MESSAGES.buttonRequests()));
 		iRequests.setTitle(MESSAGES.hintRequests());
 		iRequests.setVisible(false);
@@ -373,7 +373,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		leftHeaderPanel.add(iReset.createClone());
 		iFooter.add(leftFooterPanel);
 		iHeader.add(leftHeaderPanel);
-		
+
 		if (mode == StudentSectioningPage.Mode.REQUESTS) {
 			iTotalCreditRequestsStatus = new Image(); iTotalCreditRequestsStatus.addStyleName("credit-status"); iTotalCreditRequestsStatus.setVisible(false);
 			iTotalCreditRequestsStatus.addClickHandler(new ClickHandler() {
@@ -397,14 +397,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iFooter.add(rightFooterPanel);
 		P rightHeaderPanel = new P("right-panel");
 		iHeader.add(rightHeaderPanel);
-		
+
 		iStartOver = new AriaMultiButton(MESSAGES.buttonStartOver());
 		iStartOver.setTitle(MESSAGES.hintStartOver());
 		leftFooterPanel.add(iStartOver);
 		iStartOver.setVisible(false);
 		iStartOver.setEnabled(false);
 		leftHeaderPanel.add(iStartOver.createClone());
-		
+
 		iSchedule = (LocaleInfo.getCurrentLocale().isRTL() ? new AriaMultiButton(RESOURCES.arrowBack(), MESSAGES.buttonSchedule()) : new AriaMultiButton(MESSAGES.buttonSchedule(), RESOURCES.arrowForward()));
 		iSchedule.setTitle(MESSAGES.hintSchedule());
 		if (mode.isSectioning()) {
@@ -413,7 +413,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		iSchedule.setVisible(mode.isSectioning());
 		iSchedule.setEnabled(mode.isSectioning());
-		
+
 		iSave = new AriaMultiButton(MESSAGES.buttonSave());
 		iSave.setTitle(MESSAGES.hintSave());
 		if (!mode.isSectioning()) {
@@ -429,20 +429,20 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iEnroll.setEnabled(false);
 		rightFooterPanel.add(iEnroll);
 		rightHeaderPanel.add(iEnroll.createClone());
-		
+
 		iChangeGradeModes = new AriaMultiButton(MESSAGES.buttonChangeGradeModes());
 		iChangeGradeModes.setTitle(MESSAGES.hintChangeGradeModes());
 		iChangeGradeModes.setVisible(false);
 		iChangeGradeModes.setEnabled(false);
 		rightFooterPanel.add(iChangeGradeModes);
 		rightHeaderPanel.add(iChangeGradeModes.createClone());
-		
+
 		iRequestVarTitleCourse = new AriaMultiButton(RESOURCES.quickAddCourse(), MESSAGES.buttonRequestVariableTitleCourse());
 		iRequestVarTitleCourse.setStyleName("unitime-QuickAddButton");
 		iRequestVarTitleCourse.setTitle(MESSAGES.hintRequestVariableTitleCourse());
 		iRequestVarTitleCourse.setVisible(false);
 		iRequestVarTitleCourse.setEnabled(false);
-		
+
 		iPrint = new AriaMultiButton(MESSAGES.buttonPrint());
 		iPrint.setTitle(MESSAGES.hintPrint());
 		iPrint.setVisible(false);
@@ -458,14 +458,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			rightFooterPanel.add(iExport);
 			rightHeaderPanel.add(iExport.createClone());
 		}
-		
+
 		iPanel.add(iFooter);
-		
+
 		iStatus = new ScheduleStatus();
 		iPanel.add(iStatus);
-		
+
 		iLastResult = new ArrayList<ClassAssignmentInterface.ClassAssignment>();
-		
+
 		iQuickAdd = new AriaButton(RESOURCES.quickAddCourse(), MESSAGES.buttonQuickAdd());
 		iQuickAdd.setTitle(MESSAGES.hintQuickAdd());
 		iQuickAdd.setStyleName("unitime-QuickAddButton");
@@ -477,7 +477,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		});
 		iQuickAdd.setEnabled(false);
 		iQuickAdd.setVisible(false);
-		
+
 		iPreferences.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -513,7 +513,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				});
 			}
 		});
-		
+
 		iDegreePlan.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -593,10 +593,10 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 						}
 					}
 				});
-				
+
 			}
 		});
-		
+
 		iAdvisorReqs.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -642,11 +642,11 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							}
 						}.open(result);
 					}
-					
+
 				});
 			}
 		});
-		
+
 		iSpecRegCx.setChangeRequestorNote(new SpecialRegistrationInterface.ChangeRequestorNoteInterface() {
 			@Override
 			public boolean changeRequestorNote(final RequestedCourse rc) {
@@ -721,7 +721,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 										updateHistory();
 									}
 								}
-								
+
 								@Override
 								public void onFailure(Throwable caught) {
 									iStatus.error(MESSAGES.updateSpecialRegistrationFail(caught.getMessage()), caught);
@@ -773,7 +773,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 										updateHistory();
 									}
 								}
-								
+
 								@Override
 								public void onFailure(Throwable caught) {
 									iStatus.error(MESSAGES.updateSpecialRegistrationFail(caught.getMessage()), caught);
@@ -843,10 +843,10 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		});
 
 		initWidget(iPanel);
-		
+
 		init();
 	}
-	
+
 	/*
 	private void initAsync() {
 		GWT.runAsync(new RunAsyncCallback() {
@@ -862,20 +862,20 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		});
 	}
 	*/
-	
+
 	private void addHistory() {
 		if (iInRestore || !iTrackHistory || iUserAuthentication.getUser() == null) return;
 		iHistory.add(new HistoryItem());
 		History.newItem(String.valueOf(iHistory.size() - 1), false);
 	}
-	
+
 	private void updateHistory() {
 		if (iInRestore || !iTrackHistory || iUserAuthentication.getUser() == null) return;
 		if (!iHistory.isEmpty())
 			iHistory.remove(iHistory.size() - 1);
 		addHistory();
 	}
-	
+
 	private void init() {
 		if (CONSTANTS.allowCalendarExport()) {
 			iCalendar = new ImageLink();
@@ -909,15 +909,15 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			));
 		iAssignments.setWidth("100%");
 		iAssignments.setEmptyMessage(MESSAGES.emptySchedule());
-		
+
 		ScrollPanel assignmentsPanel = new ScrollPanel(iAssignments);
 		assignmentsPanel.setStyleName("body");
 		assignmentsPanel.getElement().getStyle().setOverflowY(Overflow.HIDDEN);
-		
+
 		final P panel = new P("unitime-Panel");
 		panel.add(assignmentsPanel);
 		iRequestVarTitleCourse.addStyleName("left");
-		
+
 		iTotalCredit = new Label("", false);
 		iShowUnassignments = new CheckBox(MESSAGES.showUnassignments());
 		iQuickAdd.addStyleName("left");
@@ -932,7 +932,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		bottom.add(iShowUnassignments);
 		bottom.add(iTotalCredit);
 		panel.add(bottom);
-		
+
 		iSpecialRegistrationsPanel = new SpecialRegistrationsPanel(iSpecRegCx) {
 			public void doSubmit(final RetrieveSpecialRegistrationResponse specReg) {
 				super.doSubmit(specReg);
@@ -975,12 +975,12 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 								iCourseRequests.setRequest(courseRequests);
 								fillIn(result);
 								addHistory();
-								// Wait-list check 
+								// Wait-list check
 								for (final ClassAssignmentInterface.CourseAssignment course: result.getCourseAssignments()) {
 									if (!course.isFreeTime() && specReg.isAdd(course.getCourseId()) && !course.isAssigned() &&
 										course.isCanWaitList() && iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_WAITLIST) &&
 										course.isNotAvailable() && !iCourseRequests.isWaitListed(course.getCourseId())) {
-										UniTimeConfirmationDialog.confirm(useDefaultConfirmDialog(), 
+										UniTimeConfirmationDialog.confirm(useDefaultConfirmDialog(),
 												(course.isFull() ? MESSAGES.suggestionsNoChoicesCourseIsFull(course.getCourseName()) :
 												(course.hasHasIncompReqs() ? MESSAGES.suggestionsNoChoicesDueToStudentPrefs(course.getCourseName()) :
 												MESSAGES.suggestionsNoChoices(course.getCourseName())))+ "\n" + MESSAGES.confirmQuickWaitList(course.getCourseName()), new Command() {
@@ -1029,7 +1029,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							iStatus.error(MESSAGES.cancelSpecialRegistrationFail(result.getMessage()));
 						callback.onSuccess(result.isSuccess());
 					}
-					
+
 					@Override
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
@@ -1039,7 +1039,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		};
 		panel.add(iSpecialRegistrationsPanel);
-		
+
 		iWaitListsPanel = new WaitListsPanel(iSpecRegCx);
 		iWaitListsPanel.getTable().addMouseClickListener(new MouseClickListener<RequestedCourse>() {
 			@Override
@@ -1059,13 +1059,13 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iShowUnassignments.setVisible(false);
 		String showUnassignments = Cookies.getCookie("UniTime:Unassignments");
 		iShowUnassignments.setValue(showUnassignments == null || "1".equals(showUnassignments));
-		
+
 		iAssignmentGrid = new TimeGrid();
 		iGridMessage = new P("unitime-TimeGridMessage"); iGridMessage.setVisible(false);
 		final P gridPanel = new P("unitime-TimeGridPanel");
 		gridPanel.add(iGridMessage);
 		gridPanel.add(iAssignmentGrid);
-		
+
 		iAssignmentTab = new AriaTabBar();
 		iAssignmentTab.addTab(MESSAGES.tabClasses(), true);
 		iAssignmentTab.addTab(MESSAGES.tabTimetable(), true);
@@ -1095,7 +1095,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iAssignmentPanel = new FocusPanel(panel);
 		iAssignmentPanel.setStyleName("unitime-ClassScheduleTabPanel");
 		iAssignmentPanel.addStyleName("unitime-FocusPanel");
-		
+
 		final Character classesAccessKey = UniTimeHeaderPanel.guessAccessKey(MESSAGES.tabClasses());
 		final Character timetableAccessKey = UniTimeHeaderPanel.guessAccessKey(MESSAGES.tabTimetable());
 		iAssignmentPanel.addKeyUpHandler(new KeyUpHandler() {
@@ -1106,7 +1106,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 						do {
 							iAssignments.setSelectedRow(iAssignments.getSelectedRow()+1);
 						} while (iAssignments.getRows()[iAssignments.getSelectedRow()] != null && !iAssignments.getRows()[iAssignments.getSelectedRow()].isSelectable());
-						
+
 						if (iAssignments.getSelectedRow() >= 0 && iAssignments.getSelectedRow() < iAssignments.getRows().length && iAssignments.getRows()[iAssignments.getSelectedRow()] != null)
 							AriaStatus.getInstance().setHTML(ARIA.classSelected(1 + iAssignments.getSelectedRow(), iAssignments.getRowsCount(), iAssignments.getRows()[iAssignments.getSelectedRow()].getAriaLabel()));
 					}
@@ -1114,14 +1114,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 						do {
 							iAssignments.setSelectedRow(iAssignments.getSelectedRow()==0?iAssignments.getRowsCount()-1:iAssignments.getSelectedRow()-1);
 						} while (iAssignments.getRows()[iAssignments.getSelectedRow()] != null && !iAssignments.getRows()[iAssignments.getSelectedRow()].isSelectable());
-						
+
 						if (iAssignments.getSelectedRow() >= 0 && iAssignments.getSelectedRow() < iAssignments.getRows().length && iAssignments.getRows()[iAssignments.getSelectedRow()] != null)
 							AriaStatus.getInstance().setHTML(ARIA.classSelected(1 + iAssignments.getSelectedRow(), iAssignments.getRowsCount(), iAssignments.getRows()[iAssignments.getSelectedRow()].getAriaLabel()));
 					}
 					if (event.getNativeKeyCode()==KeyCodes.KEY_ENTER) {
 						updateHistory();
 						showSuggestionsAsync(iAssignments.getSelectedRow());
-					}						
+					}
 				}
 				int tab = -1;
 				if (classesAccessKey != null && event.getNativeEvent().getCtrlKey() && (
@@ -1138,7 +1138,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				}
 			}
 		});
-		
+
 		iAssignmentDock = new DockPanel();
 		iAssignmentDock.setStyleName("unitime-ClassSchedulePanel");
 		iAssignmentDock.setSpacing(0);
@@ -1149,14 +1149,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iAssignmentDock.setCellHorizontalAlignment(iAssignmentTab, HasHorizontalAlignment.ALIGN_LEFT);
 		Roles.getTabpanelRole().set(iAssignmentDock.getElement());
 		Roles.getTabpanelRole().setAriaOwnsProperty(iAssignmentDock.getElement(), Id.of(iAssignmentTab.getElement()));
-		
+
 		P header = new P("unitime-MainHeader");
 		header.setHTML(MESSAGES.headerClassSchedule());
 		header.getElement().getStyle().setTextAlign(TextAlign.CENTER);
 		iAssignmentDock.add(header, DockPanel.CENTER);
 		iAssignmentDock.setCellHorizontalAlignment(header, HasHorizontalAlignment.ALIGN_CENTER);
 		iAssignmentDock.setCellWidth(header, "34%");
-		
+
 		P padding = new P("unitime-HeaderPadding");
 		padding.setHTML("&nbsp;");
 		iAssignmentDock.add(padding, DockPanel.EAST);
@@ -1168,7 +1168,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				addHistory();
 			}
 		});
-		
+
 		iReset.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -1187,7 +1187,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				});
 			}
 		});
-		
+
 		iSchedule.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				iCourseRequests.changeTip();
@@ -1207,7 +1207,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 									fillIn(result);
 									addHistory();
 								}
-							});								
+							});
 						} else {
 							String error = iCourseRequests.getFirstError();
 							iStatus.error(error == null ? MESSAGES.validationFailed() : MESSAGES.validationFailedWithMessage(error));
@@ -1226,7 +1226,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				});
 			}
 		});
-		
+
 		iStartOver.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -1254,7 +1254,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				}
 			}
 		});
-		
+
 		iAssignments.addRowClickHandler(new WebTable.RowClickHandler() {
 			public void onRowClick(WebTable.RowClickEvent event) {
 				if (iLastResult.get(event.getRowIdx()) == null) return;
@@ -1262,14 +1262,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				showSuggestionsAsync(event.getRowIdx());
 			}
 		});
-		
+
 		iAssignmentGrid.addMeetingClickHandler(new TimeGrid.MeetingClickHandler() {
 			public void onMeetingClick(TimeGrid.MeetingClickEvent event) {
 				updateHistory();
 				showSuggestionsAsync(event.getRowIndex());
 			}
 		});
-		
+
 		iAssignmentGrid.addPinClickHandler(new TimeGrid.PinClickHandler() {
 			public void onPinClick(TimeGrid.PinClickEvent event) {
 				((HasValue<Boolean>)iAssignments.getRows()[event.getRowIndex()].getCell(0).getWidget()).setValue(event.isPinChecked(), false);
@@ -1277,7 +1277,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				updateHistory();
 			}
 		});
-		
+
 		iEnroll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				Command enroll = new Command() {
@@ -1407,21 +1407,21 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				enroll.execute();
 			}
 		});
-		
+
 		iChangeGradeModes.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				changeGradeModes(new ArrayList<ClassAssignmentInterface.ClassAssignment>(iLastResult), iSpecialRegistrationsPanel.getRegistrations());
 			}
 		});
-		
+
 		iRequestVarTitleCourse.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				requestVariableTitleCourse();
 			}
 		});
-		
+
 		iPrint.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				boolean allSaved = true;
@@ -1438,14 +1438,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 						iStatus);
 			}
 		});
-		
+
 		if (iExport != null)
 			iExport.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					ToolBox.open(iCalendar.getUrl());
 				}
 			});
-		
+
 		if (iTrackHistory) {
 			History.addValueChangeHandler(new ValueChangeHandler<String>() {
 				public void onValueChange(ValueChangeEvent<String> event) {
@@ -1469,13 +1469,13 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				}
 			});
 		}
-		
+
 		iSessionSelector.addAcademicSessionChangeHandler(new AcademicSessionSelector.AcademicSessionChangeHandler() {
 			public void onAcademicSessionChange(AcademicSessionChangeEvent event) {
 				addHistory();
 			}
 		});
-		
+
 		iSave.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				addHistory();
@@ -1543,7 +1543,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				});
 			}
 		});
-		
+
 		iShowUnassignments.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
@@ -1552,7 +1552,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		});
 	}
-	
+
 	public void openSuggestionsBox(int rowIndex) {
 		ClassAssignmentInterface.ClassAssignment row = iLastResult.get(rowIndex);
 		if (row != null && row.getCourseId() != null && iCourseRequests.isWaitListed(row.getCourseId()) && !row.isAssigned()) {
@@ -1564,7 +1564,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		if (iSuggestionsBox == null) {
 			iSuggestionsBox = new SuggestionsBox(iAssignmentGrid.getColorProvider(), iSpecRegCx);
-			
+
 			iSuggestionsBox.addCloseHandler(new CloseHandler<PopupPanel>() {
 				public void onClose(CloseEvent<PopupPanel> event) {
 					Scheduler.get().scheduleDeferred(new ScheduledCommand() {
@@ -1575,7 +1575,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					});
 				}
 			});
-			
+
 			iSuggestionsBox.addSuggestionSelectedHandler(new SuggestionsBox.SuggestionSelectedHandler() {
 				public void onSuggestionSelected(SuggestionsBox.SuggestionSelectedEvent event) {
 					ClassAssignmentInterface result = event.getSuggestion();
@@ -1605,7 +1605,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					});
 				}
 			});
-			
+
 			iSuggestionsBox.addWaitListHandler(new SuggestionsBox.WaitListHandler() {
 				@Override
 				public void onWaitList(final SuggestionsBox.WaitListEvent event) {
@@ -1622,11 +1622,11 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_WAITLIST),
 				useDefaultConfirmDialog());
 	}
-	
+
 	private void fillIn(ClassAssignmentInterface result) {
 		fillIn(result, true);
 	}
-	
+
 	private void fillIn(ClassAssignmentInterface result, boolean popup) {
 		iLastEnrollment = null;
 		iLastResult.clear();
@@ -1664,7 +1664,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							icons.add(RESOURCES.unassignment(), MESSAGES.unassignment(course.getSubject() + " " + course.getCourseNbr() + " " + clazz.getSubpart() + " " + clazz.getSection()));
 						else if (!clazz.isFreeTime() && result.isCanEnroll())
 							icons.add(RESOURCES.assignment(), MESSAGES.assignment(course.getSubject() + " " + course.getCourseNbr() + " " + clazz.getSubpart() + " " + clazz.getSection()));
-						
+
 						WebTable.CheckboxCell waitList = null;
 						if (firstClazz && !clazz.isTeachingAssignment() && !clazz.isSaved() && !clazz.isFreeTime() && (clazz.isDummy() || result.isCanEnroll()) && clazz.hasError()) {
 							boolean courseEnrolled = false;
@@ -1680,7 +1680,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 										public void onValueChange(ValueChangeEvent<Boolean> event) {
 											clearMessage();
 											iCourseRequests.setWaitList(course.getCourseId(), event.getValue());
-											
+
 											LoadingWidget.getInstance().show(MESSAGES.courseRequestsScheduling());
 											CourseRequestInterface r = iCourseRequests.getRequest(); r.setNoChange(true);
 											iSectioningService.section(r, iLastResult, new AsyncCallback<ClassAssignmentInterface>() {
@@ -1699,7 +1699,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 								}
 							}
 						}
-						
+
 						GradeMode gradeMode = clazz.getGradeMode();
 						SpecialRegistrationStatus specRegStatus = iSpecialRegistrationsPanel.getStatus(clazz);
 						Float creditHour = null;
@@ -1828,7 +1828,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							cell.setStyleName(style);
 						firstClazz = false;
 					}
-					
+
 					if (iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_WAITLIST)) {
 						CourseRequestLine line = iCourseRequests.getWaitListedLine(course.getCourseId());
 						if (line != null && line.getWaitList() && course.getCourseId().equals(line.getValue().getWaitListSwapWithCourseOfferingId())) {
@@ -1881,7 +1881,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					WebTable.IconsCell icons = new WebTable.IconsCell();
 					if (course.isLocked())
 						icons.add(RESOURCES.courseLocked(), course.getNote() != null ? course.getNote() : MESSAGES.courseLocked(course.getSubject() + " " + course.getCourseNbr()));
-					
+
 					WebTable.CheckboxCell waitList = null;
 					Boolean w = iCourseRequests.getWaitList(course.getCourseId());
 					if (w != null && iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_WAITLIST) && course.isCanWaitList()) {
@@ -2012,7 +2012,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							public void onValueChange(ValueChangeEvent<Boolean> event) {
 								clearMessage();
 								iCourseRequests.setWaitList(course.getCourseId(), event.getValue());
-								
+
 								LoadingWidget.getInstance().show(MESSAGES.courseRequestsScheduling());
 								CourseRequestInterface r = iCourseRequests.getRequest(); r.setNoChange(true);
 								iSectioningService.section(r, iLastResult, new AsyncCallback<ClassAssignmentInterface>() {
@@ -2029,7 +2029,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							}
 						});
 					}
-					
+
 					if (selfWaitListed) {
 						row = new WebTable.Row(
 								new WebTable.Cell(null),
@@ -2183,7 +2183,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 								icons.add(RESOURCES.highDemand(), MESSAGES.highDemand(clazz.getExpected(), clazz.getAvailableLimit()));
 							if (clazz.isCancelled())
 								icons.add(RESOURCES.cancelled(), MESSAGES.classCancelled(course.getSubject() + " " + course.getCourseNbr() + " " + clazz.getSubpart() + " " + clazz.getSection()));
-							
+
 							if (clazz.isAssigned()) {
 								row = new WebTable.Row(
 										new WebTable.Cell(null),
@@ -2202,7 +2202,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 										new WebTable.NoteCell(clazz.getOverlapAndNote("text-red"), clazz.getOverlapAndNote(null)),
 										(creditHour != null ? new WebTable.Cell(MESSAGES.credit(creditHour)) : new WebTable.AbbvTextCell(clazz.getCredit())),
 										(gradeMode == null ? new WebTable.Cell("") : new WebTable.Cell(gradeMode.getCode()).title(gradeMode.getLabel()).aria(gradeMode.getLabel())),
-										icons);								
+										icons);
 							} else {
 								row = new WebTable.Row(
 										new WebTable.Cell(null),
@@ -2242,7 +2242,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					for (ClassAssignmentInterface.ClassAssignment clazz: course.getClassAssignments()) {
 						String style = "text-gray" + (firstClazz && !rows.isEmpty() ? " top-border-dashed": "");
 						WebTable.Row row = null;
-						
+
 						WebTable.IconsCell icons = new WebTable.IconsCell();
 						GradeMode gradeMode = clazz.getGradeMode();
 						Float creditHour = null;
@@ -2437,7 +2437,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					iStatus.error(result.getMessages("<br>"), popup);
 				} else if (hasWarning) {
 					iStatus.warning(result.getMessages("<br>"), popup);
-				} else { 
+				} else {
 					iStatus.info(result.getMessages("<br>"), popup);
 				}
 			} else {
@@ -2452,7 +2452,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				LoadingWidget.getInstance().hide();
 		}
 	}
-	
+
 	public void prev() {
 		iPanel.remove(iAssignmentDock);
 		iPanel.insert(iCourseRequests, 1);
@@ -2485,7 +2485,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		AriaStatus.getInstance().setHTML(ARIA.courseRequests());
 		updateScheduleChangedNoteIfNeeded();
 	}
-	
+
 	public void clear(boolean switchToRequests) {
 		if (iShowUnassignments != null)
 			iShowUnassignments.setVisible(false);
@@ -2499,15 +2499,15 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			prev();
 		}
 	}
-	
+
 	public void clear() {
 		clear(true);
 	}
-	
+
 	public void checkEligibility(final AsyncCallback<OnlineSectioningInterface.EligibilityCheck> ret) {
 		checkEligibility(ret, null);
 	}
-	
+
 	public void checkEligibility(final AsyncCallback<OnlineSectioningInterface.EligibilityCheck> ret, String pin) {
 		LoadingWidget.getInstance().show(MESSAGES.courseRequestsLoading());
 		iQuickAddFinder = null;
@@ -2568,7 +2568,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 										&& !result.hasFlag(OnlineSectioningInterface.EligibilityCheck.EligibilityFlag.CAN_WAITLIST));
 								iEligibilityCheck = result;
 								iContext.setStudentId(result == null ? null : result.getStudentId());
-								
+
 								iSpecRegCx.update(result);
 								iSchedule.setVisible(iMode.isSectioning()); iSchedule.setEnabled(iMode.isSectioning());
 								iSave.setVisible(!iMode.isSectioning()); iSave.setEnabled(!iMode.isSectioning() && iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_REGISTER));
@@ -2630,7 +2630,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					if (ret != null) ret.onFailure(new SectioningException(result.getMessage()));
 				}
 			}
-			
+
 			@Override
 			public void onFailure(Throwable caught) {
 				LoadingWidget.getInstance().hide();
@@ -2640,7 +2640,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		});
 	}
-	
+
 	private void lastResult(final CourseRequestInterface request, final boolean changeViewIfNeeded) {
 		AsyncCallback<ClassAssignmentInterface> callback = new AsyncCallback<ClassAssignmentInterface>() {
 			public void onFailure(Throwable caught) {
@@ -2725,11 +2725,11 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		iSpecialRegistrationsPanel.clearRegistrations();
 		iSectioningService.savedResult(iContext, callback);
 	}
-	
+
 	public void lastRequest(final boolean changeViewIfNeeded) {
 		if (!LoadingWidget.getInstance().isShowing())
 			LoadingWidget.getInstance().show(MESSAGES.courseRequestsLoading());
-		
+
 		AsyncCallback<CourseRequestInterface> callback =  new AsyncCallback<CourseRequestInterface>() {
 			public void onFailure(Throwable caught) {
 				LoadingWidget.getInstance().hide();
@@ -2782,7 +2782,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				}
 			}
 		};
-		
+
 		iSectioningService.savedRequest(iContext, callback);
 	}
 
@@ -2797,7 +2797,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		});
 	}
-	
+
 	public class HistoryItem {
 		private CourseRequestInterface iRequest;
 		private ClassAssignmentInterface iAssignment;
@@ -2808,7 +2808,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		private int iTab = 0;
 		private SpecialRegistrationContext iSRCx;
 		private ClassAssignmentInterface iSRassignment = null;
-		
+
 		private HistoryItem() {
 			iRequest = iCourseRequests.getRequest();
 			iAssignment = iLastAssignment;
@@ -2819,7 +2819,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			iSRCx = new SpecialRegistrationContext(iSpecRegCx);
 			iSRassignment = iSpecialRegAssignment;
 		}
-		
+
 		public void restore() {
 			if (isChanged() && ((iUser != null && !iUser.equals(iUserAuthentication.getUser())) || (iRequest.getSessionId() != null && !iRequest.getSessionId().equals(iSessionSelector.getAcademicSessionId())))) {
 				UniTimeConfirmationDialog.confirm(useDefaultConfirmDialog(), iMode.isSectioning() ? MESSAGES.queryLeaveChangesOnClassSchedule() : MESSAGES.queryLeaveChangesOnCourseRequests(), new Command() {
@@ -2881,7 +2881,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			});
 		}
 	}
-	
+
 	public void setData(CourseRequestInterface request, ClassAssignmentInterface response) {
 		clear();
 		iCourseRequests.setRequest(request);
@@ -2902,7 +2902,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 	public HandlerRegistration addResizeHandler(ResizeHandler handler) {
 		return addHandler(handler, ResizeEvent.getType());
 	}
-	
+
 	public void updateScheduleChangedNoteIfNeeded() {
 		if (iScheduleChanged) {
 			iScheduleChanged = false;
@@ -3019,15 +3019,15 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		}
 	}
-	
+
 	public boolean isChanged() {
 		return iScheduleChanged;
 	}
-	
+
 	public void clearMessage() {
 		clearMessage(true);
 	}
-	
+
 	public void clearMessage(boolean showEligibility) {
 		if (iEligibilityCheck != null && iContext.isOnline() && showEligibility) {
 			if (iEligibilityCheck.hasFlag(EligibilityFlag.PIN_REQUIRED))
@@ -3040,7 +3040,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				iStatus.warning(iEligibilityCheck.getMessage(), false);
 			else if (iEligibilityCheck.hasMessage())
 				iStatus.info(iEligibilityCheck.getMessage(), false);
-			else { 
+			else {
 				iStatus.clear();
 				iEnroll.removeStyleName("unitime-EnrollButton");
 				iSave.removeStyleName("unitime-EnrollButton");
@@ -3053,7 +3053,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		if (isChanged())
 			updateScheduleChangedNoteIfNeeded();
 	}
-	
+
 	protected void setElibibilityCheckDuringEnrollment(EligibilityCheck check) {
 		iEligibilityCheck = check;
 		iSpecRegCx.update(check);
@@ -3095,7 +3095,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		}
 	}
-	
+
 	public boolean hasNotAssignedClass(ClassAssignmentInterface result) {
 		for (final ClassAssignmentInterface.CourseAssignment course: result.getCourseAssignments()) {
 			if (course.isAssigned() && !course.isFreeTime()) {
@@ -3106,7 +3106,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return false;
 	}
-	
+
 	public String getCriticalCoursesToDrop() {
 		if (iLastAssignment != null && iSavedAssignment != null && iSavedRequest != null) {
 			boolean hasCrit = false, hasImp = false, hasVital = false;
@@ -3140,7 +3140,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return null;
 	}
-	
+
 	public List<String> getCoursesToDrop() {
 		if (iLastAssignment != null && iSavedAssignment != null) {
 			List<String> ret = new ArrayList<String>();
@@ -3155,7 +3155,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return null;
 	}
-	
+
 	public List<String> getCourseChangesWithHonorsGradeMode() {
 		if (iLastAssignment != null && iSavedAssignment != null) {
 			List<String> ret = new ArrayList<String>();
@@ -3176,7 +3176,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return null;
 	}
-	
+
 	public List<String> getCourseChangesWithVarbiableCredit() {
 		if (iLastAssignment != null && iSavedAssignment != null) {
 			List<String> ret = new ArrayList<String>();
@@ -3197,11 +3197,11 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return null;
 	}
-	
+
 	public boolean useDefaultConfirmDialog() {
 		return iEligibilityCheck == null || !iEligibilityCheck.hasFlag(EligibilityFlag.GWT_CONFIRMATIONS);
 	}
-	
+
 	protected Command confirmEnrollment(final Command callback) {
 		return confirmEnrollmentDrop(confirmWaitListDrop(confirmEnrollmentHonors(confirmEnrollmentVariableCredits(confirmSectionSwapNoPref(callback)))));
 	}
@@ -3229,14 +3229,14 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return callback;
 	}
-	
+
 	public List<String> getCoursesToDropWaitList() {
 		if (iSavedRequest != null && iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_WAITLIST)) {
 			List<String> ret = new ArrayList<String>();
 			r: for (Request r: iSavedRequest.getCourses()) {
 				if (r.isWaitList() && r.hasRequestedCourse()) {
 					for (RequestedCourse rc: r.getRequestedCourse())
-						if (rc.getStatus() == RequestedCourseStatus.ENROLLED) continue r; 
+						if (rc.getStatus() == RequestedCourseStatus.ENROLLED) continue r;
 					for (RequestedCourse rc: r.getRequestedCourse()) {
 						if (rc.isCanWaitList() && rc.hasCourseId() && !Boolean.TRUE.equals(iCourseRequests.getWaitList(rc.getCourseId()))) {
 							if (rc.getStatus() == RequestedCourseStatus.SAVED || rc.getStatus() == RequestedCourseStatus.OVERRIDE_APPROVED) {
@@ -3250,7 +3250,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return null;
 	}
-	
+
 	public Command confirmWaitListDrop(final Command callback) {
 		if (iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CONFIRM_DROP)) {
 			final List<String> wl = getCoursesToDropWaitList();
@@ -3265,7 +3265,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return callback;
 	}
-	
+
 	protected Command confirmEnrollmentHonors(final Command callback) {
 		if (iEligibilityCheck != null && iEligibilityCheck.hasGradeModes()) {
 			final List<String> changes = getCourseChangesWithHonorsGradeMode();
@@ -3280,7 +3280,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return callback;
 	}
-	
+
 	protected Command confirmEnrollmentVariableCredits(final Command callback) {
 		if (iEligibilityCheck != null && iEligibilityCheck.hasGradeModes()) {
 			final List<String> changes = getCourseChangesWithVarbiableCredit();
@@ -3409,7 +3409,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 								addHistory();
 								iQuickAddFinder.setValue(null, true);
 							}
-							
+
 							@Override
 							public void onFailure(Throwable caught) {
 								if (caught != null) iStatus.error(caught.getMessage());
@@ -3446,7 +3446,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return iQuickAddFinder;
 	}
-	
+
 	protected void requestEnrollmentOverrides(final SpecialRegistrationEligibilityResponse eligibilityResponse, final Command callWhenDone) {
 		if (eligibilityResponse == null) {
 			if (callWhenDone != null) callWhenDone.execute();
@@ -3580,7 +3580,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		});
 	}
-	
+
 	protected void checkSpecialRegistrationAfterFailedSubmitSchedule(ArrayList<ClassAssignmentInterface.ClassAssignment> lastEnrollment, Throwable exception, ClassAssignmentInterface result, final Command callWhenDone) {
 		iLastEnrollment = lastEnrollment;
 		final EnrollmentConfirmationDialog dialog = new EnrollmentConfirmationDialog(exception, result, new AsyncCallback<SpecialRegistrationEligibilityResponse>() {
@@ -3608,7 +3608,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 					}
 				});
 	}
-	
+
 	protected void checkWaitListAfterSubmitSchedule() {
 		if (iSavedAssignment.getRequest() != null && iSavedAssignment.getRequest().hasWaitListChecks()) {
 			final CheckCoursesResponse lastCheck = iSavedAssignment.getRequest().getWaitListChecks();
@@ -3650,7 +3650,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 									LoadingWidget.getInstance().hide();
 									updateHistory();
 								}
-								
+
 								public void onFailure(Throwable caught) {
 									iStatus.error(MESSAGES.failedRequestWaitListOverrides(caught.getMessage()), caught);
 									LoadingWidget.getInstance().hide();
@@ -3680,7 +3680,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 		}
 	}
-	
+
 	protected void printConfirmation(CourseRequestInterface savedRequests) {
 		WebTable requests = new WebTable();
 		requests.setEmptyMessage(StudentSectioningWidget.MESSAGES.emptyRequests());
@@ -3721,7 +3721,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							break;
 						case SAVED:
 							icon = RESOURCES.requestSaved(); iconText = ((msg == null ? "" : MESSAGES.requestWarnings(msg) + "\n\n") + MESSAGES.requested(rc.getCourseName()));
-							break;				
+							break;
 						case OVERRIDE_REJECTED:
 							icon = RESOURCES.requestRejected(); iconText = ((msg == null ? "" : MESSAGES.requestWarnings(msg) + "\n\n") + MESSAGES.overrideRejected(rc.getCourseName()));
 							break;
@@ -3780,7 +3780,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							new WebTable.Cell(first ? MESSAGES.courseRequestsPriority(priority) : ""),
 							new WebTable.Cell(rc.getCourseName()),
 							new WebTable.Cell(rc.hasCourseTitle() ? rc.getCourseTitle() : ""),
-							credit, 
+							credit,
 							new WebTable.Cell(ToolBox.toString(prefs)),
 							new WebTable.WidgetCell(messages, note),
 							(icon == null ? new WebTable.Cell(status) : new WebTable.IconCell(icon, iconText, status)),
@@ -3835,7 +3835,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							break;
 						case SAVED:
 							icon = RESOURCES.requestSaved(); iconText = ((msg == null ? "" : MESSAGES.requestWarnings(msg) + "\n\n") + MESSAGES.requested(rc.getCourseName()));
-							break;				
+							break;
 						case OVERRIDE_REJECTED:
 							icon = RESOURCES.requestRejected(); iconText = ((msg == null ? "" : MESSAGES.requestWarnings(msg) + "\n\n") + MESSAGES.overrideRejected(rc.getCourseName()));
 							break;
@@ -3924,7 +3924,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 			}
 			priority ++;
 		}
-		
+
 		if (savedRequests.getMaxCreditOverrideStatus() != null) {
 			ImageResource icon = null;
 			String status = "";
@@ -4000,26 +4000,26 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		WebTable.Row[] rowArray = new WebTable.Row[rows.size()];
 		int idx = 0;
 		for (WebTable.Row row: rows) rowArray[idx++] = row;
-		
+
 		requests.setData(rowArray);
 		requests.setColumnVisible(4, hasPref);
 		requests.setColumnVisible(5, hasWarn);
 		requests.setColumnVisible(7, hasWait);
-		
+
 		P credit = new P("unitime-StatusLine");
 		float[] range = savedRequests.getCreditRange(iEligibilityCheck == null ? null : iEligibilityCheck.getAdvisorWaitListedCourseIds());
 		if (range != null && range[1] > 0f) {
 			if (range[0] == range[1]) credit.setText(MESSAGES.requestedCredit(range[0]));
 			else credit.setText(MESSAGES.requestedCreditRange(range[0], range[1]));
 		}
-		
+
 		ToolBox.print(GWT_MESSAGES.pageStudentCourseRequests(),
 				iUserAuthentication.getUser(),
 				iSessionSelector.getAcademicSessionName(),
 				requests//, credit
 				);
 	}
-	
+
 	protected void changeGradeModes(ArrayList<ClassAssignmentInterface.ClassAssignment> lastEnrollment, List<RetrieveSpecialRegistrationResponse> approvals) {
 		if (iChangeGradeModesDialog == null) {
 			iChangeGradeModesDialog = new ChangeGradeModesDialog(iContext, iStatus) {
@@ -4070,7 +4070,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		iChangeGradeModesDialog.changeGradeModes(lastEnrollment, approvals);
 	}
-	
+
 	protected void requestVariableTitleCourse() {
 		if (iRequestVariableTitleCourseDialog == null) {
 			iRequestVariableTitleCourseDialog = new RequestVariableTitleCourseDialog(iContext, iStatus) {
@@ -4099,15 +4099,15 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 				iEligibilityCheck == null || !iEligibilityCheck.hasCurrentCredit() ? iCurrentCredit : iEligibilityCheck.getCurrentCredit(),
 				iEligibilityCheck == null ? null : iEligibilityCheck.getMaxCredit());
 	}
-	
+
 	public void setSessionId(Long sessionId) {
 		iContext.setSessionId(sessionId);
 	}
-	
+
 	public void setStudentId(Long studentId) {
 		iContext.setStudentId(studentId);
 	}
-	
+
 	protected WaitListedRequestPreferences getWaitListedRequestPreferences() {
 		if (iWaitListedRequestPreferences == null) {
 			iWaitListedRequestPreferences = new WaitListedRequestPreferences(iContext) {
@@ -4126,13 +4126,13 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 							fillIn(result);
 							addHistory();
 						}
-					});	
+					});
 				}
 			};
 		}
 		return iWaitListedRequestPreferences;
 	}
-	
+
 	public List<String> getSectionSwapsNoPrefs() {
 		if (iLastAssignment != null) {
 			List<String> ret = new ArrayList<String>();
@@ -4154,7 +4154,7 @@ public class StudentSectioningWidget extends Composite implements HasResizeHandl
 		}
 		return null;
 	}
-	
+
 	protected Command confirmSectionSwapNoPref(final Command callback) {
 		if (iEligibilityCheck != null && iEligibilityCheck.hasFlag(EligibilityFlag.CAN_WAITLIST)) {
 			final List<String> changes = getSectionSwapsNoPrefs();

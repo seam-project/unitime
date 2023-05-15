@@ -13,12 +13,12 @@ public class SimpleStudentClassListBuilder {
         if (student == null) {
             return null;
         }
-        String table = "";
+        StringBuilder table = new StringBuilder();
         Set<StudentClassEnrollment> enrollments = student.getClassEnrollments();
         for (StudentClassEnrollment enrollment : enrollments) {
             CourseOffering o = enrollment.getCourseOffering();
-            table += o.getSubjectArea() + " " + o.getCourseNbr() + "<br />";
+            table.append(o.getSubjectArea() + " " + o.getCourseNbr() + "<br />");
         }
-        return table;
+        return table.toString();
     }
 }

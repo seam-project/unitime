@@ -43,6 +43,7 @@ public class StudentDetailAction extends UniTimeAction<BlankForm> {
 
     private static final long serialVersionUID = 7592940798685460713L;
 
+    @Override
     public String execute() throws IOException {
         sessionContext.checkPermission(Right.StudentDetail);
 

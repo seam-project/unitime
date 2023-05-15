@@ -44,8 +44,9 @@ import org.unitime.timetable.webutil.StudentListBuilder;
 public class StudentSearchAction extends UniTimeAction<BlankForm> {
     private static final long serialVersionUID = 5199990990419667211L;
 
-    protected final static CourseMessages MSG = Localization.create(CourseMessages.class);
+    protected static final CourseMessages MSG = Localization.create(CourseMessages.class);
 
+    @Override
     public String execute() throws IOException {
         sessionContext.checkPermission(Right.Students);
 

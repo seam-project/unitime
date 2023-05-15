@@ -34,18 +34,19 @@ public class StudentListBuilder {
     }
 
     public String htmlTableForStudent(SessionContext context) {
-        List<Student> students = (List<Student>) Student.findAll(context.getUser().getCurrentAcademicSessionId());
-        if (students == null || students.size() == 0)
+        List<Student> students = Student.findAll(context.getUser().getCurrentAcademicSessionId());
+        if (students == null || students.isEmpty())
             return null;
-        String table = "";
+        StringBuilder table = new StringBuilder();
         for (Student student : students) {
             String id = student.getExternalUniqueId();
-            table += "<a href='studentDetail.action?studentId=" + id + "'>"
-                    + id + ". " + nullableToString(student.getFirstName()) + ' '
-                    + nullableToString(student.getMiddleName()) + ' '
-                    + nullableToString(student.getLastName()) + "</a><br />";
+            table.append(
+                    "<a href='studentDetail.action?studentId=" + id + "'>"
+                            + id + ". " + nullableToString(student.getFirstName()) + ' '
+                            + nullableToString(student.getMiddleName()) + ' '
+                            + nullableToString(student.getLastName()) + "</a><br />");
         }
-        return table;
+        return table.toString();
     }
 
 }
